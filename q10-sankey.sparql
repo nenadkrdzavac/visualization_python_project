@@ -1,0 +1,23 @@
+# First ten highest gross exports of value added origin countries with DE
+SELECT (STRAFTER(str(?fado_country), "#") AS ?fadocountry) (STRAFTER(str(?fd_country), "#") AS ?fdcountry) (SUM(?val) AS ?v)
+FROM <exgr_bsci_2015_2018>
+WHERE {
+    
+?s rdf:type <https://schema.coypu.org/ontology/fdva-bsci/fdva#ValueAddedOriginOfFinalDemand> .
+?s <https://schema.coypu.org/ontology/fdva-bsci/fdva#hasFinalDemand> ?fd .
+?fd <https://schema.coypu.org/global#hasCountryLocation> ?fd_country .
+?s <https://schema.coypu.org/ontology/fdva-bsci/fdva#hasValueAddedOrigin> ?fado .
+?fado <https://schema.coypu.org/global#hasCountryLocation> ?fado_country .
+?s <https://schema.coypu.org/global#hasValue> ?value .
+?s <https://schema.coypu.org/ontology/fdva-bsci/fdva#hasYear> ?year .
+
+BIND( xsd:decimal(?value) as ?val ) .
+BIND( xsd:string(?year) as ?y ) .
+
+FILTER(str(?fd_country)= 'https://schema.coypu.org/global#DEU') .
+
+FILTER(str(?fd_country)!= str(?fado_country)) .
+
+} ORDER BY DESC(?v) 
+
+LIMIT 10

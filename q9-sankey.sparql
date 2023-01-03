@@ -1,0 +1,17 @@
+#First twenty value highest exports between value added origin countries to final demand EU countries
+SELECT  (STRAFTER(str(?fado_country), "#") AS ?source) (STRAFTER(str(?fd_country), "#") AS ?target) (SUM(?eivalue) AS ?sum)
+FROM <none>
+WHERE {
+
+?s rdf:type <https://schema.coypu.org/ontology/fdva-bsci/fdva#ValueAddedOriginOfFinalDemand> .
+?s <https://schema.coypu.org/ontology/fdva-bsci/fdva#hasFinalDemand> ?fd .
+?fd <https://schema.coypu.org/global#hasCountryLocation> ?fd_country .
+?s <https://schema.coypu.org/ontology/fdva-bsci/fdva#hasValueAddedOrigin> ?fado .
+?fado <https://schema.coypu.org/global#hasCountryLocation> ?fado_country .
+?s <https://schema.coypu.org/global#hasValue> ?value .
+?s <https://schema.coypu.org/ontology/fdva-bsci/fdva#hasYear> ?year .
+
+BIND(xsd:string(?value) as ?val ) .
+BIND(xsd:integer(?val) as ?eivalue) .
+    
+} GROUP BY ?fd_country ?fado_country ORDER BY DESC(?sum) LIMIT 20
