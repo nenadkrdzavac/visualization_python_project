@@ -43,5 +43,5 @@ fig = go.Figure(data=[go.Sankey(
 
     ))])
 
-fig.update_layout(title_text="Sum of gross exports for EU countries", font_size=10)
+fig.update_layout(title_text="Sum of gross exports for EU countries in trillions of US dollars", font_size=10)
 fig.show()

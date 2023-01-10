@@ -12,7 +12,7 @@ if __name__ == '__main__':
 app = Dash(__name__)
 
 app.layout = html.Div([
-    html.H4('First twenty highest exports between value added origin countries and final demand EU countries'),
+    html.H4('First twenty highest exports between value added origin countries and final demand EU countries for "Basic metals"  and "Fabricated metal products" industry sectors'),
     dcc.Graph(id="graph"),
     html.P("Opacity"),
     dcc.Slider(id='slider', min=0, max=1,
